@@ -1,14 +1,91 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import { useNavigation } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import axios from 'axios';
 
 const Header = () => {
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const [openDialog, setOpenDialog] = useState(false);
+
+  // const navigation=useNavigation();
+
+  useEffect(() => {
+    console.log(user);
+  }, [])
+
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => GetUserProfile(tokenResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  })
+  const GetUserProfile = (tokenInfo) => {
+    axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?acess_token=${tokenInfo?.access_token}`, {
+      headers: {
+        Authorization: `Bearer ${tokenInfo?.access_token}`,
+        Accept: 'Application/json'
+      }
+    }).then((resp) => {
+      console.log(resp);
+      localStorage.setItem('user', JSON.stringify(resp.data));
+      setOpenDialog(false);
+      window.location.reload();
+    })
+  }
+
+
   return (
     <div className='p-2  shadow-sm flex justify-between items-center px-5  '>
       <img src="/logo.svg" alt="Logo" className='h-8 w-50' />
       <div>
-        <Button className='h-8 w-20'>Sign In</Button>
+        {user ?
+          <div className='flex items-center gap-3'>
+            <a href='my-trips'>
+            <Button variant="outline" className="rounded-full ">My Trips</Button>
+            </a>
+            <Popover>
+              <PopoverTrigger><img src={user?.picture} className='h-[35px] w-[35px] rounded-full' alt="" />
+              </PopoverTrigger>
+              <PopoverContent><h2 onClick={() => {
+                googleLogout();
+                localStorage.clear();
+                window.location.reload();
+              }
+              } className='cursor-pointer'>Logout</h2></PopoverContent>
+            </Popover>
+          </div>
+          :
+          <Button className='h-8 w-20' onClick={()=>setOpenDialog(true)}>Sign In</Button>
+        }
       </div>
-      
+      <Dialog open={openDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogDescription>
+              <img src="./logo.svg" alt="" />
+              <h2 className='font-bold text-sm mt-5'>Sign In With Google </h2>
+              <h2>Sign in to the App With Google Authentication Securely </h2>
+
+              <Button
+                onClick={login} className='w-full mt-5 flex gap-4 itmes-center'><FcGoogle />Sign In With Google</Button>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
