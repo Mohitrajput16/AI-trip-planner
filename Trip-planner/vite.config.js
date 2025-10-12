@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react()],
   optimizeDeps: {
     include: ["react-google-places-autocomplete"],
   },
@@ -11,6 +11,8 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-    dedupe: ["react", "react-dom"], // 👈 important
+    dedupe: ["react", "react-dom"],
   },
 })
+
+
