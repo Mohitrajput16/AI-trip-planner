@@ -50,10 +50,14 @@ const Header = () => {
 
   return (
     <div className='p-2  shadow-sm flex justify-between items-center px-5  '>
-      <img src="/logo.svg" alt="Logo" className='h-8 w-50' />
+      <img src="/logo2.svg" alt="Logo" className='h-[50px] w-[220px]' /> 
       <div>
         {user ?
           <div className='flex items-center gap-3'>
+            
+            <a href='create-trip'>
+            <Button variant="outline" className="rounded-full ">Create Trip</Button>
+            </a>
             <a href='my-trips'>
             <Button variant="outline" className="rounded-full ">My Trips</Button>
             </a>

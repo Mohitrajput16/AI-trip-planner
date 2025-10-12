@@ -20,8 +20,8 @@ const UserTripCardItem = ({trip}) => {
       }
   return (
     <Link to={'/view-trip/'+trip?.id}>
-    <div className='hover:scale-105 transition=all' >
-      <img src={photoUrl?photoUrl:'/Gemini_cover.png'} alt="" className='object-cover rounded-xl' />
+    <div className='hover:scale-105 transition-all ' >
+      <img src={photoUrl?photoUrl:'/Gemini_cover.png'} alt="" className='object-cover rounded-xl h-[280px] w-[320px]' />
       <div>
     <h2 className='font-bold text-lg'>{trip?.userSelection?.location?.label}</h2>
     <h2 className='text-sm text-gray-500'>{trip?.userSelection.noOfDays} Days trips with {trip?.userSelection?.budget}</h2>
