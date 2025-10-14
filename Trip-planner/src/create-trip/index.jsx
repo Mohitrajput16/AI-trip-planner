@@ -31,6 +31,19 @@ import { useNavigate } from 'react-router-dom';
 
 const CreateTrip = () => {
 
+  const [GooglePlacesAutocomplete, setGPA] = useState(null);
+
+  useEffect(() => {
+    import("react-google-places-autocomplete")
+      .then((mod) => setGPA(() => mod.default))
+      .catch((err) => console.error(err));
+  }, []);
+
+  if (!GooglePlacesAutocomplete) return null; // or loading spinner
+
+  return <GooglePlacesAutocomplete />;
+
+  
   const [place, setPlace] = useState();
   const [formData, setFormData] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
