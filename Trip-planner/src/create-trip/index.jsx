@@ -31,17 +31,17 @@ import { useNavigate } from 'react-router-dom';
 
 const CreateTrip = () => {
 
-  const [GooglePlacesAutocomplete, setGPA] = useState(null);
+  // const [GooglePlacesAutocomplete, setGPA] = useState(null);
 
-  useEffect(() => {
-    import("react-google-places-autocomplete")
-      .then((mod) => setGPA(() => mod.default))
-      .catch((err) => console.error(err));
-  }, []);
+  // useEffect(() => {
+  //   import("react-google-places-autocomplete")
+  //     .then((mod) => setGPA(() => mod.default))
+  //     .catch((err) => console.error(err));
+  // }, []);
 
-  if (!GooglePlacesAutocomplete) return null; // or loading spinner
+  // if (!GooglePlacesAutocomplete) return null; // or loading spinner
 
-  return <GooglePlacesAutocomplete />;
+  // return <GooglePlacesAutocomplete />;
 
   
   const [place, setPlace] = useState();
