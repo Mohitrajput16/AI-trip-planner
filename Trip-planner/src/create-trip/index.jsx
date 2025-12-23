@@ -12,7 +12,7 @@ import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../service/firebaseconfig";
+import { db } from "../service/Firebaseconfig";
 
 // import { db } from "./firebase"; 
 
